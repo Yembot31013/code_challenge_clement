@@ -1,25 +1,24 @@
-import json
-
 def handle_parsing_json(data: dict):
-  internet_hubs = data.get('Internet_hubs', [])
-
-  cleaned_internet_hubs = internet_hubs[1:9]
-  
-  serial_numbers = [f'C25CTW0000000000147{n}' for n in range(1, 9)]
-  
-  print([x['id'][-1] for x in cleaned_internet_hubs])
-  reversed_cleaned_internet_hubs = sorted(cleaned_internet_hubs, key=lambda x: int(x['id'][-1]), reverse=True)
-  
-  new_internet_hub = []
-  for internet_hub, serial_number in zip(reversed_cleaned_internet_hubs, serial_numbers):
-    internet_hub['serial_number'] = serial_number
-    new_internet_hub.append(internet_hub)
-  
-  updated_data = data.copy()
-  
-  updated_data['Internet_hubs'] = new_internet_hub
-  
-  return updated_data, data
+    internet_hubs = data.get('Internet_hubs', [])
+    
+    # Assuming 'men1' is not valid, we just want to keep hubs with the ids of 'mn1' to 'mn8' based on how I understand the PDF
+    cleaned_internet_hubs = internet_hubs[1:9]
+    
+    serial_numbers = [f'C25CTW0000000000147{n}' for n in range(1, 9)]
+    
+    print([x['id'][-1] for x in cleaned_internet_hubs])
+    reversed_cleaned_internet_hubs = sorted(cleaned_internet_hubs, key=lambda x: int(x['id'][-1]), reverse=True)
+    
+    new_internet_hub = []
+    for internet_hub, serial_number in zip(reversed_cleaned_internet_hubs, serial_numbers):
+        internet_hub['serial_number'] = serial_number
+        new_internet_hub.append(internet_hub)
+    
+    updated_data = data.copy()
+    
+    updated_data['Internet_hubs'] = new_internet_hub
+    
+    return updated_data, data
 
 
 
